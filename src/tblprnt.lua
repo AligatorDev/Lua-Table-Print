@@ -14,7 +14,7 @@ function row(values,config)
        v = tostring(v)
        local vl = RealCount(v)
        local st = (( forcewidth[k]) and string.rep(" ",(forcewidth[k]-vl)) or "")
-       local ckh = v..st .."   │   "
+       local ckh = v..st .."   │"..(k==#values and "" or "   ")
        local ckhl=RealCount(ckh)
        str = str ..ckh
        if(not h) then
@@ -26,7 +26,7 @@ function row(values,config)
     end
     if(not h) then head = head.."┐\n" end
      foot=foot.. (last and "┘" or "┤")
-    return (not h and head or "")..str..(not div and foot or "")
+    return (not h and head or "")..str:sub(0,#str-6).."│"..(not div and foot or "")
  end
  function fmtstr(str)
    return str
@@ -203,7 +203,7 @@ function row(values,config)
        end
 
        local h = "\n"..MakeTable(m)
-       config.allcolor = config.allcolor or "green"
+       config.allcolor = config.allcolor or "greenbg"
        local corf = print.colors[config.allcolor] 
        assert(corf,"That color doesn't exists!")
        local preset = corf(""):gsub("\27%[0m","") 
@@ -220,3 +220,21 @@ function row(values,config)
  print = setmetatable({},{__call=function(_,...)prtr(...)end,__index=inxtbl})
  
  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+print.table({
+  "\r",
+  {["🐊🐊🐊🐊🐊🐊"]="lindo"},
+  0.55555555555555
+},{allcolor="greenbg"} )
+
+
+
+
+
