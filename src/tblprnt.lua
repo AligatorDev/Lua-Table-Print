@@ -2,31 +2,35 @@ function row(values,config)
     config = config or {}
     assert(config==nil or type(config) == "table","Config need be a object or nil")
     assert(type(values) =="table","Values need be a lua \"array\" ")
+    local chrs = {"│","─","┌","└","├","┬","┴","┼","┤","┘","┐"}
+    if not print.config.extendedASCII then
+        chrs = {"|","-","|","|","|","---","---","---","|","|","|"}
+    end
     local h= config.hidehead or false
     local last = config.lastrow or false
     local forcewidth = config.forcewidth or {}
     local div = config.hidefoot or false
     
-    local str ="│   "
-    local head = "┌"
-    local foot = last and "\n└" or "\n├"
+    local str =chrs[1].."   "
+    local head = chrs[3]
+    local foot = last and "\n"..chrs[4] or "\n"..chrs[5]
     for k,v in ipairs(values) do
        v = tostring(v)
        local vl = RealCount(v)
        local st = (( forcewidth[k]) and string.rep(" ",(forcewidth[k]-vl)) or "")
-       local ckh = v..st .."   │"..(k==#values and "" or "   ")
+       local ckh = v..st .."   "..chrs[1]..(k==#values and "" or "   ")
        local ckhl=RealCount(ckh)
        str = str ..ckh
        if(not h) then
-         head = head..string.rep("─",  ((ckhl-k)-(k==#values and -(k-3) or 3-k)) )..((k==#values) and "" or "┬")
+         head = head..string.rep(chrs[2],  ((ckhl-k)-(k==#values and -(k-3) or 3-k)) )..((k==#values) and "" or chrs[6])
        end
        if(not div) then
-       foot = foot..string.rep("─", (ckhl-k)-(k==#values and -(k-3) or 3-k))..((k==#values) and "" or (last and "┴" or "┼"))
+       foot = foot..string.rep(chrs[2], (ckhl-k)-(k==#values and -(k-3) or 3-k))..((k==#values) and "" or (last and chrs[7] or chrs[8]))
        end
     end
-    if(not h) then head = head.."┐\n" end
-     foot=foot.. (last and "┘" or "┤")
-    return (not h and head or "")..str:sub(0,#str-6).."│"..(not div and foot or "")
+    if(not h) then head = head..chrs[11].."\n" end
+     foot=foot.. (last and chrs[10] or chrs[9])
+    return (not h and head or "")..str:sub(0,#str-6)..chrs[1]..(not div and foot or "")
  end
  function fmtstr(str)
    return str
@@ -158,7 +162,13 @@ function row(values,config)
      if tipo == "string" then
        ob = print.colors.green("'"..ob:gsub("\n","\\n"):gsub("\r","\\r").."'")
      elseif tipo == "number" then
-       ob = print.colors.yellow( math.floor(ob*100)/100)
+       local _,m = math.modf(ob)
+       local v = tostring(math.floor(ob*100)/100)
+       if (m == 0 ) then    
+          v = v:sub(0,#v-2)
+       end
+       ob = print.colors.yellow(v )
+
      end
      return tostring(ob)
  end
@@ -214,15 +224,10 @@ function row(values,config)
        else
          return h
        end
-   end
+   end,
+   config = {
+       extendedASCII = true,
+   }
  }
  local prtr=print
  print = setmetatable({},{__call=function(_,...)prtr(...)end,__index=inxtbl})
- 
- 
- 
- 
- 
- 
-
-
