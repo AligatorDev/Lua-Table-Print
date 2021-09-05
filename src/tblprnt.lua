@@ -207,7 +207,7 @@ function row(values,config)
        local corf = print.colors[config.allcolor] 
        assert(corf,"That color doesn't exists!")
        local preset = corf(""):gsub("\27%[0m","") 
-       h=preset..h:gsub("\27%[0m","\27%[0m"..preset).."\27[0m"
+       h=preset..h:gsub("\27%[0m","\27[0m"..preset).."\27[0m"
        
        if not onlygen then
          print(h)
