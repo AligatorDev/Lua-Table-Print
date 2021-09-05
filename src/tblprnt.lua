@@ -203,7 +203,7 @@ function row(values,config)
        end
 
        local h = "\n"..MakeTable(m)
-       config.allcolor = config.allcolor or "greenbg"
+       config.allcolor = config.allcolor or "green"
        local corf = print.colors[config.allcolor] 
        assert(corf,"That color doesn't exists!")
        local preset = corf(""):gsub("\27%[0m","") 
@@ -224,17 +224,5 @@ function row(values,config)
  
  
  
- 
- 
- 
- 
-print.table({
-  "\r",
-  {["🐊🐊🐊🐊🐊🐊"]="lindo"},
-  0.55555555555555
-},{allcolor="greenbg"} )
-
-
-
 
 
