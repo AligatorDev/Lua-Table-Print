@@ -89,3 +89,15 @@ print.table({
 
 And that is it!
 
+
+If you are having a problem like that 
+![image](https://user-images.githubusercontent.com/28674704/132140197-11dcd45e-fe98-4ff5-9509-09701bb6cd3d.png)
+Don't worry
+
+Only disable extendascii
+
+```lua
+print.config.extendedASCII = false
+```
+
+and run again!
