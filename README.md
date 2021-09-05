@@ -1,11 +1,11 @@
 # Lua-Table-Print
 Beautiful table print for lua
-Tested on lua 5.1.5 on replit! it need support ansicolors!
+Tested on lua 5.1.5 Replit! it need support ansicolors!
 Developed by aligoxtoso#8179
 
 Its like console.table on js!
 All the tables are embed on print!
-Support Emojis!
+Support Emojis!🐊🐊🐊🐊🐊🐊
 Suppress line breaks!
 ```lua
 print.colors[COLOR]
